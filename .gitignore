@@ -5,6 +5,7 @@ npm-debug.log*
 
 # Coverage directory used by tools like istanbul
 coverage
+.coverage
 
 # node-waf configuration
 .lock-wscript
@@ -28,3 +29,4 @@ dist
 .DS_Store
 
 *.tgz
+
