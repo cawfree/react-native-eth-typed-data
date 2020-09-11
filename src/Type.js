@@ -1,5 +1,5 @@
 import abi from 'ethereumjs-abi'
-import { keccak256 } from 'js-sha3'
+import { ethers } from 'ethers';
 
 import AbstractType from './AbstractType'
 import { verifyRawSignatureFromAddress } from './verify'
@@ -138,11 +138,11 @@ export default function Type (primaryType, defs) {
         if (isDynamicType(type)) {
           // Dynamic types are hashed
           types.push('bytes32')
-          values.push(Buffer.from(keccak256(this[name]), 'hex'))
+          values.push(Buffer.from(ethers.utils.keccak256(ethers.utils.toUtf8Bytes(this[name])).substring(2), 'hex'))
         } else if (type in domain.types) {
           // Structure Types are recursively encoded and hashed
           types.push('bytes32')
-          values.push(Buffer.from(keccak256(this[name].encodeData()), 'hex'))
+          values.push(Buffer.from(ethers.utils.keccak256(this[name].encodeData()).substring(2), 'hex'))
         } else if (isArrayType(type)) {
           // TODO: Figure out the spec for encoding array types
           throw new Error('[DEV] Array types not yet supported')
@@ -177,7 +177,7 @@ export default function Type (primaryType, defs) {
      * @returns {String} The hash, ready to be signed
      */
     signHash() {
-      return Buffer.from(keccak256(this.encode()), 'hex')
+      return Buffer.from(ethers.utils.keccak256(this.encode()).substring(2), 'hex')
     }
 
     /**

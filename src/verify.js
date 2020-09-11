@@ -1,5 +1,5 @@
 import { ec as EC } from 'elliptic'
-import { keccak256 } from 'js-sha3'
+import { ethers } from 'ethers';
 
 import EIP712Domain from './Domain'
 
@@ -43,7 +43,7 @@ export function verifyRawSignatureFromAddress(data, signature, address) {
  */
 export function toEthereumAddress(hexPublicKey) {
   hexPublicKey = hexPublicKey.startsWith('0x') ? hexPublicKey.slice(2) : hexPublicKey 
-  return `0x${keccak256(Buffer.from(hexPublicKey, 'hex')).slice(-20).toString('hex')}`
+  return `0x${ethers.utils.keccak256(Buffer.from(hexPublicKey, 'hex')).substring(2).slice(-20).toString('hex')}`
 }
 
 /**
