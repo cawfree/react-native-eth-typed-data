@@ -1,4 +1,4 @@
-import EIP712Domain, { EIP712DomainProperties } from '../Domain';
+import EIP712Domain, { EIP712DomainProperties } from '../src/Domain';
 
 const domainDef = {
   name: 'Test Domain',

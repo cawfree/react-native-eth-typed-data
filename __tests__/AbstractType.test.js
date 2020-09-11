@@ -1,4 +1,4 @@
-import AbstractType from '../AbstractType'
+import AbstractType from '../src/AbstractType'
 
 describe('AbstractType', () => {
   it('constructs', () => {

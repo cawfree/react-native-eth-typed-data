@@ -1,4 +1,5 @@
 import { ethers } from 'ethers';
+import { Buffer } from 'buffer';
 import * as secp from "noble-secp256k1";
 
 import AbstractType from './AbstractType'

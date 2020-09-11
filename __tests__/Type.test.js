@@ -1,9 +1,8 @@
-
 import * as util from 'ethereumjs-util'
 import { ec as EC } from 'elliptic'
 
-import EIP712Domain from '../Domain'
-import { toEthereumAddress } from '../verify'
+import EIP712Domain from '../src/Domain'
+import { toEthereumAddress } from '../src/verify'
 
 const secp256k1 = EC('secp256k1')
 

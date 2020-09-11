@@ -1,3 +1,5 @@
+import { Buffer } from 'buffer';
+
 export const ATOMICS = [
   'bytes1', 'bytes2', 'bytes4', 'bytes8', 'bytes16', 'bytes32',
   'uint8', 'uint16', 'uint32', 'uint64', 'uint128', 'uint256',

@@ -1,5 +1,5 @@
 import { ec as EC } from 'elliptic'
-import { verify, verifyRawSignatureFromAddress, toEthereumAddress } from '../verify'
+import { verify, verifyRawSignatureFromAddress, toEthereumAddress } from '../src/verify'
 
 const secp256k1 = EC('secp256k1')
 

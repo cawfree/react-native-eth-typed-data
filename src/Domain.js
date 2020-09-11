@@ -1,4 +1,5 @@
 import { ethers } from 'ethers';
+import { Buffer } from 'buffer';
 
 import AbstractType from './AbstractType'
 import Type from './Type'
