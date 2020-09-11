@@ -1,4 +1,4 @@
-import { keccak256 } from 'js-sha3'
+import { ethers } from 'ethers';
 
 /**
   * @classdesc
@@ -45,7 +45,7 @@ export default class AbstractType {
     * @returns {String} the typeHash of this type
     */
   static typeHash() {
-    return Buffer.from(keccak256(this.encodeType()), 'hex')
+    return Buffer.from(ethers.utils.keccak256(ethers.utils.toUtf8Bytes(this.encodeType())).substring(2), 'hex')
   }
 
   /**
@@ -64,7 +64,7 @@ export default class AbstractType {
    *                   and the encoded data of this instance
    */
   hashStruct() {
-    return Buffer.from(keccak256(this.encodeData()), 'hex')
+    return Buffer.from(ethers.utils.keccak256(this.encodeData()).substring(2), 'hex');
   }
 
   /********************************************************************
