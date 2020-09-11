@@ -1,4 +1,4 @@
-import abi from 'ethereumjs-abi'
+//import abi from 'ethereumjs-abi'
 import { ethers } from 'ethers';
 
 import AbstractType from './AbstractType'
@@ -11,7 +11,9 @@ export const EIP712DomainProperties = [
   { name: "version", type: "string" },
   { name: "chainId", type: "uint256" },
   { name: "verifyingContract", type: "address" },
-  { name: "salt", type: "bytes32" },
+  // TODO: This causes errors. Is this wrong?
+  //{ name: "salt", type: "bytes32" },
+  { name: "salt", type: "string" },
 ]
 
 /**
@@ -161,10 +163,13 @@ export default function EIP712Domain(def) {
       const values = this.constructor.properties.map(({name, type}) => 
         type === 'string' ? Buffer.from(ethers.utils.keccak256(ethers.utils.toUtf8Bytes(this.vals[name])).substring(2), 'hex') : this.vals[name])
 
-      return abi.rawEncode(
+      const args = [
         ['bytes32', ...types], 
-        [Buffer.from(this.constructor.typeHash(), 'hex'), ...values]
-      )
+        [Buffer.from(this.constructor.typeHash(), 'hex'), ...values],
+      ];
+
+      //const x = abi.rawEncode(...args);
+      return Buffer.from(ethers.utils.defaultAbiCoder.encode(...args).substring(2), 'hex');
     }
 
     /**
