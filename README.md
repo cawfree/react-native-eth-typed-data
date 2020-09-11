@@ -2,6 +2,10 @@
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com)
 [![Twitter Follow](https://img.shields.io/twitter/follow/uport_me.svg?style=social&label=Follow)](https://twitter.com/uport_me)
 
+> This is a [**React Native**](https://react-native.dev) port of [`eth-typed-data`](https://github.com/uport-project/eth-typed-data). All dependence on [**Node.js**](https://nodejs.org/en/) binaries have been replaced with compatible, pure JavaScript equivalents.
+>
+> This project is **functionally equivalent** to the original library.
+
 *Thanks for checking out EthTypedData!  This library is currently in beta, and we don't yet recommend using it in production applications -- please file an issue if you encounter any bugs or would like to request a feature!*
 
 [FAQ and helpdesk support](http://bit.ly/uPort_helpdesk)
