@@ -1,6 +1,6 @@
 import { ethers } from 'ethers';
 import { Buffer } from 'buffer';
-import * as secp from "noble-secp256k1";
+import * as secp from "react-native-elliptic-curve-cryptography";
 
 import AbstractType from './AbstractType'
 import { verifyRawSignatureFromAddress, normalizeSignature, flattenSignature, toEthereumAddress } from './verify'
