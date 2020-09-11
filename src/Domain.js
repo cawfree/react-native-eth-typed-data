@@ -1,4 +1,3 @@
-//import abi from 'ethereumjs-abi'
 import { ethers } from 'ethers';
 
 import AbstractType from './AbstractType'
@@ -163,13 +162,7 @@ export default function EIP712Domain(def) {
       const values = this.constructor.properties.map(({name, type}) => 
         type === 'string' ? Buffer.from(ethers.utils.keccak256(ethers.utils.toUtf8Bytes(this.vals[name])).substring(2), 'hex') : this.vals[name])
 
-      const args = [
-        ['bytes32', ...types], 
-        [Buffer.from(this.constructor.typeHash(), 'hex'), ...values],
-      ];
-
-      //const x = abi.rawEncode(...args);
-      return Buffer.from(ethers.utils.defaultAbiCoder.encode(...args).substring(2), 'hex');
+      return Buffer.from(ethers.utils.defaultAbiCoder.encode(['bytes32', ...types], [Buffer.from(this.constructor.typeHash(), 'hex'), ...values]).substring(2), 'hex');
     }
 
     /**

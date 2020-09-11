@@ -1,4 +1,3 @@
-import abi from 'ethereumjs-abi'
 import { ethers } from 'ethers';
 
 import AbstractType from './AbstractType'
@@ -155,7 +154,7 @@ export default function Type (primaryType, defs) {
         }
       }
 
-      return abi.rawEncode(types, values)
+      return Buffer.from(ethers.utils.defaultAbiCoder.encode(types, values).substring(2), 'hex');
     }
 
     /**
