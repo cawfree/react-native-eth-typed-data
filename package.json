@@ -40,6 +40,7 @@
     "@babel/runtime": "^7.1.2",
     "ethereumjs-abi": "^0.6.5",
     "ethereumjs-util": "^7.0.5",
+    "ethers": "^5.0.12",
     "js-sha3": "^0.8.0"
   },
   "jest": {

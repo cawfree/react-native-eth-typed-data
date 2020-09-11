@@ -1,5 +1,6 @@
 import abi from 'ethereumjs-abi'
 import { keccak256 } from 'js-sha3'
+import { ethers } from 'ethers';
 
 import AbstractType from './AbstractType'
 import Type from './Type'
