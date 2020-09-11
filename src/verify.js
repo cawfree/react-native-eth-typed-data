@@ -1,6 +1,5 @@
 import { ethers } from 'ethers';
 import { Buffer } from 'buffer';
-import * as secp from "noble-secp256k1";
 
 import EIP712Domain from './Domain'
 
@@ -26,52 +25,6 @@ export function verify(request, signature, address) {
  * @returns {Boolean} indicator of the signature's validity
  */
 export function verifyRawSignatureFromAddress(data, signature, address) {
-  const { r, s, v } = normalizeSignature(signature)
-  const sig = new secp.SignResult(r, s, v);
-
-  Buffer.isBuffer(sig.r) && Object.assign(sig, { r: BigInt(`0x${sig.r.toString("hex")}`) });
-  Buffer.isBuffer(sig.s) && Object.assign(sig, { s: BigInt(`0x${sig.s.toString("hex")}`) });
-
-  const publicKey = secp.recoverPublicKey(data.toString("hex"), sig.toHex(), v)
-  const recoveredAddress = toEthereumAddress(publicKey)
-
-  return recoveredAddress === address
-}
-
-/**
- * Convert a hex encoded secp256k1 public key to the equivalent ethereum address
- * @param   {String} hexPublicKey
- * @returns {String} address of account with given public key 
- */
-export function toEthereumAddress(hexPublicKey) {
-  hexPublicKey = hexPublicKey.startsWith('0x') ? hexPublicKey.slice(2) : hexPublicKey 
-  return `0x${ethers.utils.keccak256(Buffer.from(hexPublicKey, 'hex')).substring(2).slice(-20).toString('hex')}`
-}
-
-/**
- * Convert a string, or buffer signature to an object containing
- * the three signature parameters r, s, v
- * @param   {String|Object} sig
- * @returns {Object}  A normalized signature object, containing strings r,s,v
- */
-export function normalizeSignature(sig) {
-  // Parse string into buffer
-  if (typeof sig === 'string') {
-    sig = {
-      r: Buffer.from(sig.slice(0, 64), 'hex'),
-      s: Buffer.from(sig.slice(64, 128), 'hex'),
-      v: parseInt(sig[128])
-    }
-  }
-
-  return {
-    r: sig.r,
-    s: sig.s,
-    v: 'recoveryParam' in sig ? sig.recoveryParam : sig.v,
-  }
-}
-
-// TODO: I added this, probably won't work.
-export function flattenSignature({r, s, v}) {
-  return Buffer.from(`0x${r}${s}{v}`)
-}
+  const normalizedAddress = ethers.utils.getAddress(address);
+  return ethers.utils.verifyMessage(ethers.utils.arrayify(data), signature) === normalizedAddress;
+};

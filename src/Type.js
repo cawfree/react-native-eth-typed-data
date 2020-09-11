@@ -2,7 +2,7 @@ import { ethers } from 'ethers';
 import { Buffer } from 'buffer';
 
 import AbstractType from './AbstractType'
-import { verifyRawSignatureFromAddress, normalizeSignature, flattenSignature, toEthereumAddress } from './verify'
+import { verifyRawSignatureFromAddress, normalizeSignature, flattenSignature } from './verify'
 import { 
   isArrayType, isPrimitiveType, 
   isDynamicType, isAtomicType,

@@ -1,10 +1,7 @@
 import * as util from 'ethereumjs-util'
-import { ec as EC } from 'elliptic'
+import { ethers } from 'ethers';
 
 import EIP712Domain from '../src/Domain'
-import { toEthereumAddress } from '../src/verify'
-
-const secp256k1 = EC('secp256k1')
 
 describe('Type [factory]', () => {
   let Domain
@@ -143,13 +140,10 @@ describe('MailExample', () => {
     expect(util.bufferToHex(message.signHash())).toEqual(signHash)
   })
 
-  test('sign and verifySignature', () => {
-    const keypair = secp256k1.genKeyPair()
-    const address = toEthereumAddress(keypair.getPublic().encode('hex'))
-
-    const signature = message.sign(keypair.sign.bind(keypair))
-
-    expect(message.verifySignature(signature, address)).toBe(true)
+  test('sign and verifySignature', async () => {
+    const wallet = ethers.Wallet.createRandom();
+    const signature = await message.sign(wallet.signMessage.bind(wallet));
+    expect(message.verifySignature(signature, wallet.address)).toBe(true)
   })
 })
 
