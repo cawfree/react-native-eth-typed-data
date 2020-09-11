@@ -1,9 +1,7 @@
-import { ec as EC } from 'elliptic'
 import { ethers } from 'ethers';
+import * as secp from 'noble-secp256k1';
 
 import EIP712Domain from './Domain'
-
-const secp256k1 = new EC('secp256k1')
 
 /**
  * Verify that a particular object was signed by a given
@@ -28,11 +26,14 @@ export function verify(request, signature, address) {
  */
 export function verifyRawSignatureFromAddress(data, signature, address) {
   const { r, s, v } = normalizeSignature(signature)
+  const sig = new secp.SignResult(r, s, v);
 
-  // Recover public key from signature, and convert to ethereum address
-  const publicKey = secp256k1.recoverPubKey(data, {r, s}, v).encode('hex')
+  Buffer.isBuffer(sig.r) && Object.assign(sig, { r: BigInt(`0x${sig.r.toString("hex")}`) });
+  Buffer.isBuffer(sig.s) && Object.assign(sig, { s: BigInt(`0x${sig.s.toString("hex")}`) });
 
+  const publicKey = secp.recoverPublicKey(data.toString("hex"), sig.toHex(), v)
   const recoveredAddress = toEthereumAddress(publicKey)
+
   return recoveredAddress === address
 }
 
@@ -52,7 +53,7 @@ export function toEthereumAddress(hexPublicKey) {
  * @param   {String|Object} sig
  * @returns {Object}  A normalized signature object, containing strings r,s,v
  */
-function normalizeSignature(sig) {
+export function normalizeSignature(sig) {
   // Parse string into buffer
   if (typeof sig === 'string') {
     sig = {
@@ -67,4 +68,9 @@ function normalizeSignature(sig) {
     s: sig.s,
     v: 'recoveryParam' in sig ? sig.recoveryParam : sig.v,
   }
+}
+
+// TODO: I added this, probably won't work.
+export function flattenSignature({r, s, v}) {
+  return Buffer.from(`0x${r}${s}{v}`)
 }

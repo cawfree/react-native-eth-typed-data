@@ -32,6 +32,7 @@
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^23.6.0",
     "elliptic": "^6.4.1",
+    "ethereumjs-abi": "^0.6.5",
     "ethereumjs-util": "^7.0.5",
     "jest": "^23.6.0",
     "jsdoc": "^3.5.5",
@@ -39,9 +40,8 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.1.2",
-    "ethereumjs-abi": "^0.6.5",
     "ethers": "^5.0.12",
-    "js-sha3": "^0.8.0"
+    "noble-secp256k1": "^1.0.5"
   },
   "jest": {
     "coverageDirectory": ".coverage",

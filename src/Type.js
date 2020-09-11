@@ -1,7 +1,8 @@
 import { ethers } from 'ethers';
+import * as secp from "noble-secp256k1";
 
 import AbstractType from './AbstractType'
-import { verifyRawSignatureFromAddress } from './verify'
+import { verifyRawSignatureFromAddress, normalizeSignature, flattenSignature, toEthereumAddress } from './verify'
 import { 
   isArrayType, isPrimitiveType, 
   isDynamicType, isAtomicType,
@@ -201,7 +202,139 @@ export default function Type (primaryType, defs) {
      */
     verifySignature(signature, address) {
       const hash = this.signHash()
-      return verifyRawSignatureFromAddress(hash, signature, address)
+      const x = verifyRawSignatureFromAddress(hash, signature, address);
+
+
+      //const {r, s, v} = normalizeSignature(signature);
+
+      //// Cannot mix BigInt and other types, use explicit conversions
+      //const sig = new secp.SignResult(r, s, v);
+
+      //console.log({ sig });
+
+      //console.log('hash is', hash.toString("hex"));
+      ////const rec = secp.recoverPublicKey("deadbeef", sig.toHex(), v);
+      //const rec = secp.recoverPublicKey(hash.toString("hex"), sig.toHex(), v);
+      //console.log({ rec, address });
+      //const g = toEthereumAddress(rec);
+
+      //console.log({ g });
+
+      //const recoveredPubkey = secp.recoverPublicKey(hash, sig);
+
+
+      //const hex = sig.toHex();
+      //console.log({hex});
+      //expect(secp.SignResult.fromHex(hex)).toEqual(sig);
+
+      //const message = 'deadbeef';
+      //const privateKey = 123456789n;
+      //const publicKey = secp.getPublicKey(privateKey.toString(16));
+      //const [sig, recovery] = await secp.sign(message, privateKey, {
+      //  recovered: true
+      //});
+
+      //const flattened = flattenSignature({r, s, v});
+      //console.log({ flattened });
+      //const recoveredPubkey = secp.recoverPublicKey(hash, flattened, v);
+
+      //const publicKey = secp.recoverPubKey(data, {r, s}, v).encode('hex')
+
+      //console.log({ recoveredPubKey });
+
+      //const realHash = Buffer.from(ethers.utils.hashMessage(hash).substring(2), "hex");
+
+
+      // TODO: It is okay to use this. :)
+      //const recoverPublicKey(hash, signature, recovery)
+
+
+      //const r = normalizedSignature.r.toString();
+      //const s = normalizedSignature.s.toString();
+      //const v = normalizedSignature.v;
+
+      //console.log(r, s, v);
+
+      //console.log((r+s+v).length);
+
+
+//      const signatureRaw = {
+//        r: signature.r.toString(),
+//        s: signature.s.toString(),
+//        v: signature.v,
+//      };
+//
+//      const normalizedSignatureRaw = {
+//        r: normalizedSignature.r.toString(),
+//        s: normalizedSignature.s.toString(),
+//        v: normalizedSignature.v,
+//      };
+//      const expandedSig = {
+//        r: "0x0ba9770fd8778383f6d56faadc71e17b75f0d6e3ff0a408d5e6c4cee3bd70a16",
+//        s: "0x3574da0ebfb1eaac261698b057b342e52ea53f85287272cea471a4cda41e3466",
+//        v: 27,
+//        //r: tx.r,
+//        //s: tx.s,
+//        //v: tx.v,
+//      };
+//
+//      console.log({ signatureRaw, expandedSig });
+//
+//      const sig = ethers.utils.joinSignature(expandedSig);
+//      console.log({ sig });
+
+      //console.log({ signature });
+      //console.log({ normalizedSignature });
+      //
+      //const next = {
+      //  r: `0x${normalizedSignature.r.toString()}`,
+      //  s: `0x${normalizedSignature.s.toString()}`,
+      //  recoveryParam: normalizedSignature.v,
+      //};
+
+      //console.log({ next });
+
+      //const flat = `0x${}${}${}`;
+
+      //let expanded = ethers.utils.joinSignature(next);
+
+      //const otherSignature = {
+      //  r: `0x${signature.r.toString("hex")}`,
+      //  s: `0x${signature.s.toString("hex")}`,
+      //  recoveryParam: signature.recoveryParam,
+      //  //// TODO: where does this come from?
+      //  //v: 28, // or 28
+      //};
+
+      //const r = signature.r.toString();//"0x0ba9770fd8778383f6d56faadc71e17b75f0d6e3ff0a408d5e6c4cee3bd70a16";
+      //const s = signature.s.toString();//"3574da0ebfb1eaac261698b057b342e52ea53f85287272cea471a4cda41e3466";
+      //const v = "1b";
+
+
+      //const y = {
+      //  r: signature.r.toString(),
+      //  s: signature.s.toString(),
+      //  recoveryParam: signature.recoveryParam,
+      //};
+
+      //console.log({ y });
+
+      //let expanded = {
+      //   r: "0x0ba9770fd8778383f6d56faadc71e17b75f0d6e3ff0a408d5e6c4cee3bd70a16",
+      //   s: "0x3574da0ebfb1eaac261698b057b342e52ea53f85287272cea471a4cda41e3466",
+      //   recoveryParam: 0,
+      //   v: 27,
+      //};
+      //let flat = ethers.utils.joinSignature(expanded);
+
+      //console.log({ expanded, signature, otherSignature });
+
+      //const joined = ethers.utils.joinSignature(otherSignature);
+
+      //console.log({ otherSignature });
+      //console.log({ joined });
+
+      return x;
     }
   }
 
