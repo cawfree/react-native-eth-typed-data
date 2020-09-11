@@ -1,5 +1,5 @@
 {
-  "name": "eth-typed-data",
+  "name": "react-native-eth-typed-data",
   "version": "0.1.0-beta.0",
   "description": "A library to simplifiy interacting with and signing EIP712 typed data",
   "main": "lib",
