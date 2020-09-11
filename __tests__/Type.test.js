@@ -1,4 +1,3 @@
-import * as util from 'ethereumjs-util'
 import { ethers } from 'ethers';
 
 import EIP712Domain from '../src/Domain'
@@ -109,7 +108,7 @@ describe('MailExample', () => {
   })
 
   test('domainSeparator', () => {
-    expect(util.bufferToHex(Domain.domainSeparator)).toEqual(MailExample.results.domainSeparator)
+    expect(ethers.utils.hexlify(Domain.domainSeparator)).toEqual(MailExample.results.domainSeparator)
   })
 
   test('toSignatureRequest', () => {
@@ -125,19 +124,19 @@ describe('MailExample', () => {
   })
 
   test('typeHash', () => {
-    expect(util.bufferToHex(Mail.typeHash())).toEqual(typeHash)
+    expect(ethers.utils.hexlify(Mail.typeHash())).toEqual(typeHash)
   })
 
   test('encodeData', () => {
-    expect(util.bufferToHex(message.encodeData())).toEqual(encodeData)
+    expect(ethers.utils.hexlify(message.encodeData())).toEqual(encodeData)
   })
 
   test('hashStruct', () => {
-    expect(util.bufferToHex(message.hashStruct())).toEqual(hashStruct)
+    expect(ethers.utils.hexlify(message.hashStruct())).toEqual(hashStruct)
   })
 
   test('signHash', () => {
-    expect(util.bufferToHex(message.signHash())).toEqual(signHash)
+    expect(ethers.utils.hexlify(message.signHash())).toEqual(signHash)
   })
 
   test('sign and verifySignature', async () => {

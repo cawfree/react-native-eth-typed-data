@@ -11,8 +11,6 @@ export const EIP712DomainProperties = [
   { name: "version", type: "string" },
   { name: "chainId", type: "uint256" },
   { name: "verifyingContract", type: "address" },
-  // TODO: This causes errors. Is this wrong?
-  //{ name: "salt", type: "bytes32" },
   { name: "salt", type: "string" },
 ]
 

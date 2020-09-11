@@ -1,5 +1,6 @@
-import { verify, verifyRawSignatureFromAddress } from '../src/verify'
 import { ethers } from 'ethers';
+
+import { verify, verifyRawSignatureFromAddress } from '../src/verify'
 
 function wallet() {
   return ethers.Wallet.createRandom();
